@@ -6,6 +6,8 @@
 
 #### 快排quick sort
 
+[AcWing 785. 快速排序算法的证明与边界分析 - AcWing](https://www.acwing.com/solution/content/16777/)
+
 快排属于分治算法，分治算法都有三步：
 
 分成子问题
