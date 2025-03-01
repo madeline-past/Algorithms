@@ -2,8 +2,6 @@
 
 **字符串算法、排序算法、递归、最小生成树之prim算法、dfs算法、bfs算法、贪婪算法、动态规划**
 
-### 排序
-
 #### 快排quick sort
 
 [AcWing 785. 快速排序算法的证明与边界分析 - AcWing](https://www.acwing.com/solution/content/16777/)
@@ -68,4 +66,30 @@ void merge_sort(int q[], int l, int r)
     for(k = 0, i = l; i <= r; k++, i++) q[i] = tmp[k];
 }
 ```
+
+#### 整数二分
+
+当要找的边界点在右半部分的左端点时
+
+```python
+while l < r:
+    m = (l + r) // 2
+    if q[m] >= key:
+        r = m
+    else:
+        l = m+1
+```
+
+当要找的边界点在左半部分的右端点时
+
+```python
+while l < r:
+    m = (l + r +1) // 2
+    if q[m] <= key:
+        l = m
+    else:
+        r = m-1
+```
+
+#### 高精度
 
