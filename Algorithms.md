@@ -92,3 +92,8 @@ while l < r:
 ```
 
 #### 前缀和与差分
+
+heapq
+https://www.cnblogs.com/lwp-boy/p/13557104.html
+dijkstra
+https://www.acwing.com/solution/content/9964/
