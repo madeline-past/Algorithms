@@ -72,6 +72,8 @@ void merge_sort(int q[], int l, int r)
 当要找的边界点在右半部分的左端点时
 
 ```python
+l = 0
+r = n-1
 while l < r:
     m = (l + r) // 2
     if q[m] >= key:
@@ -79,6 +81,8 @@ while l < r:
     else:
         l = m+1
 ```
+
+最后ans=l=r，用l或r表示答案都可
 
 当要找的边界点在左半部分的右端点时
 
@@ -91,9 +95,149 @@ while l < r:
         r = m-1
 ```
 
-#### 前缀和与差分
+[Python3二分查找库函数bisect(), bisect_left()和bisect_right()介绍_bisect left-CSDN博客](https://blog.csdn.net/YMWM_/article/details/122378152)
 
-heapq
-https://www.cnblogs.com/lwp-boy/p/13557104.html
+bisect.bisect和bisect.bisect_right返回大于x的第一个下标(相当于C++中的upper_bound)，bisect.bisect_left返回大于等于x的第一个下标(相当于C++中的lower_bound)。
+
+bisect使用举例：896.最长上升子序列 II
+
+```
+import bisect
+
+n = int(input())
+q = list(map(int, input().split()))
+st = [q[0]]
+
+for i in range(1, n):
+    # 如果大于栈顶元素, 压入
+    if q[i] > st[-1]:
+        st.append(q[i])
+    # 否则, 替换栈中 大于等于 q[i] 的最小元素
+    else:
+        idx = bisect.bisect_left(st, q[i])
+        st[idx] = q[i]
+
+print(len(st))
+```
+
+数据结构：
+
+树：可以用链表的方式存储每个节点的子节点
+
+
+
+python常用库
 dijkstra
 https://www.acwing.com/solution/content/9964/
+
+
+
+heapq:https://www.cnblogs.com/lwp-boy/p/13557104.html
+
+from heapq import *
+
+heapify
+
+heappop
+
+heappush
+
+哈夫曼树
+
+```
+from heapq import *
+
+n = int(input())
+nums = list(map(int, input().split()))
+
+heapify(nums)
+
+res = 0
+while len(nums) > 1:
+    a = heappop(nums)
+    b = heappop(nums)
+    res += a + b
+    heappush(nums, a + b)
+print(res)
+```
+
+
+
+递归法
+python3默认最大栈深度为999，从第7个测试用例开始就会爆栈；
+
+我们可以通过sys模块中的setrecursionlimit来调整最大栈深度，这样也可以用递归的方法AC
+
+```
+import sys
+sys.setrecursionlimit(6010)
+```
+
+
+
+考前速记模板：
+
+快速幂
+
+```python
+def qmi(a, k, p):
+    res = 1
+    while k:
+        if k&1:
+            res = res*a%p
+        k >>= 1
+        a = a**2%p
+    return res
+```
+
+快速幂求逆元：用费马小定理
+
+```
+def qmi(a, k, p):
+    res = 1
+    while k:
+        if k&1:
+            res = res*a%p
+        k >>= 1
+        a = a**2%p
+    return res
+    
+n = int(input())
+for _ in range(n):
+    a, p = map(int, input().split(" "))
+    ans = qmi(a, p-2, p)
+    if a%p:
+        print(ans)
+    else:
+        print("impossible")
+```
+
+线性筛：对于每个素数，筛掉所有以该素数作为最小素因子的数
+
+这样每个数只会被筛掉一次
+
+https://www.bilibili.com/video/BV1Ah411N7E4
+
+```python
+def prime(n):
+    isprime = [True]*(n+1)
+    p_list = []
+    for i in range(2, n+1):
+        if isprime[i]:
+            p_list.append(i)
+        for p in p_list:
+            if p*i>n:
+                break
+            isprime[p*i] = False
+            if i%p==0:
+                break
+	return len(p_list)
+```
+
+
+
+
+
+未看：[902. 最短编辑距离 - AcWing题库](https://www.acwing.com/problem/content/904/)
+
+[899. 编辑距离 - AcWing题库](https://www.acwing.com/problem/content/901/)
